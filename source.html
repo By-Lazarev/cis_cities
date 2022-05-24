@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en", lang="ru">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cities</title>
+</head>
+<body>
+    <form action="">
+        <select id="countrySelect" name=""></select>
+        <select id="citySelect" name=""></select>
+    </form>
+
+<script>
+
+
+        fetch('./ru.json')
+            .then(res => res.json())
+            .then(json => {
+
+                let jsObj = json
+                for (let key in jsObj) {
+
+                    let countryOption = document.createElement('option');
+                    let countrySelect = document.getElementById('countrySelect');
+
+                    countryOption.innerHTML = key;
+                    countrySelect.appendChild(countryOption);
+
+
+                }
+                document.querySelector('#countrySelect').addEventListener('change', function () {
+                    let cities = jsObj[this.value]
+
+                    citySelect.length = 0;
+
+                    for (const iterator of cities) {
+
+                        let cityOption = document.createElement('option');
+                        let citySelect = document.getElementById('citySelect');
+
+                        cityOption.innerHTML = iterator;
+                        citySelect.appendChild(cityOption);
+                    }
+                })
+            })
+
+    </script>
+</body>
